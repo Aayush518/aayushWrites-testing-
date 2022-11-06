@@ -1,0 +1,21 @@
+
+<div class="objectcache:widget">
+
+    <p>
+        Relay is a next-generation caching layer for PHP that will significantly speed up your object cache lookups.
+    </p>
+
+    <?php if (extension_loaded('relay')) : ?>
+        <p>
+            Good news, the Relay extension is already installed on your system.
+        </p>
+
+        <a href="https://objectcache.pro/docs/relay/" class="button">Enable Relay</a>
+
+    <?php else : ?>
+
+        <a href="https://relaycache.com/?ref=ocp-widget" target="_blank" class="button button-primary">Try it for free</a>
+
+    <?php endif; ?>
+
+</div>

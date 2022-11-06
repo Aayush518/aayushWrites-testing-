@@ -1,0 +1,235 @@
+
+<?php echo $this->before_non_tabular_output(); ?>
+
+    <section>
+        <h3>Status</h3>
+        <p>
+            <?php echo $data['status']; ?>
+        </p>
+    </section>
+
+    <section>
+        <h3>Cache</h3>
+        <p>
+            Size: <?php echo size_format($data['bytes'], 2); ?>
+
+            <?php if (isset($data['prefetches'])) : ?>
+                <br>
+                Prefetches: <?php echo esc_html($data['prefetches']); ?>
+            <?php endif; ?>
+
+            <?php if (isset($data['commands'])) : ?>
+                <br>
+                <button class="qm-filter-trigger" data-qm-target="cache-commands" data-qm-filter="type" data-qm-value="">
+                    Commands: <?php echo esc_html($data['commands']); ?>
+                </button>
+            <?php endif; ?>
+        </p>
+    </section>
+
+    <?php if (isset($data['ms_total'])) : ?>
+        <section>
+            <h3>Timing</h3>
+            <p>
+                Request: <?php echo esc_html($data['ms_total']); ?> ms
+                <?php if (isset($data['ms_cache'])) : ?>
+                    <br>
+                    Cache: <?php echo esc_html($data['ms_cache']); ?> ms
+                    <br>
+                    <span class="qm-info">
+                        <?php echo esc_html($data['ms_cache_ratio']); ?>% of request
+                        <br>
+                        <?php echo esc_html($data['ms_cache_median']); ?> ms median
+                    </span>
+                <?php endif; ?>
+            </p>
+        </section>
+    <?php endif; ?>
+
+    <section>
+        <h3>Memory</h3>
+        <p>
+            <?php echo esc_html($data['ratio']); ?>% hit rate
+            <br>
+            <?php echo esc_html($data['hits']); ?> hits
+            <br>
+            <?php echo esc_html($data['misses']); ?> misses
+        </p>
+    </section>
+
+    <?php if (isset($data['store_hits'], $data['store_misses'], $data['store_reads'], $data['store_writes'])) : ?>
+
+        <section>
+            <h3>Store</h3>
+            <p>
+                <?php echo esc_html($data['store_hits']); ?> hits
+                <br>
+                <?php echo esc_html($data['store_misses']); ?> misses
+                <br>
+                <?php echo esc_html($data['store_reads']); ?> reads
+                <br>
+                <?php echo esc_html($data['store_writes']); ?> writes
+            </p>
+        </section>
+
+    <?php endif; ?>
+
+</div>
+
+<?php if (! empty($data['errors'])) : ?>
+    <div class="qm-boxed qm-boxed-wrap">
+
+        <section>
+            <h3 style="color: #14ceea;">Errors</h3>
+
+            <table>
+                <tbody>
+                    <?php foreach ($data['errors'] as $error) : ?>
+                        <tr class="qm-warn">
+                            <td class="qm-ltr qm-wrap">
+                                <span class="dashicons dashicons-warning" aria-hidden="true"></span>
+                                <?php echo esc_html($error); ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+<?php endif; ?>
+
+<?php if ($data['license'] && ! $data['license']->isValid()) : ?>
+    <div class="qm-boxed qm-boxed-wrap">
+
+        <section>
+            <h3 style="color: #14ceea;">License</h3>
+
+            <table>
+                <tbody>
+                    <tr class="qm-warn">
+                        <td class="qm-ltr qm-wrap">
+                            <span class="dashicons dashicons-warning" aria-hidden="true"></span>
+
+                            <?php if (! $data['license']->state()) : ?>
+                                <?php printf(
+                                    'The license token <code>••••••••%s</code> could not be verified.',
+                                    substr($data['license']->token(), -4)
+                                ); ?>
+                            <?php elseif ($data['license']->isInvalid()) : ?>
+                                <?php printf(
+                                    'The license token <code>••••••••%s</code> appears to be invalid.',
+                                    substr($data['license']->token(), -4)
+                                ); ?>
+                            <?php else : ?>
+                                <?php printf(
+                                    'Your Object Cache Pro license is %s.',
+                                    $data['license']->state()
+                                ); ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+<?php endif; ?>
+
+<div class="qm-boxed qm-boxed-wrap">
+
+    <?php if (! empty($data['meta'])) : ?>
+
+        <section>
+            <h3>Metadata</h3>
+
+            <table>
+                <tbody>
+                    <?php foreach ($data['meta'] as $label => $value) : ?>
+                        <tr>
+                            <th scope="row"><?php echo esc_html($label); ?></th>
+                            <td class="qm-ltr qm-wrap"><?php echo esc_html($value); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </section>
+
+    <?php endif; ?>
+
+    <?php if (! empty($data['cache'])) : ?>
+
+        <section>
+            <h3>Groups</h3>
+
+            <table>
+                <tbody>
+                    <?php foreach ($data['cache'] as $group => $values) : ?>
+                        <tr>
+                            <th scope="row"><?php echo esc_html($group); ?></th>
+                            <td class="qm-ltr qm-wrap">
+                                <?php printf(
+                                    _n('%s key', '%s keys', $values['keys'], 'object-cache-pro'),
+                                    $values['keys']
+                                ); ?>
+                                <span class="qm-info">
+                                    (<?php echo size_format($values['bytes']); ?>)
+                                </span>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </section>
+
+    <?php endif; ?>
+
+    <?php if (! empty($data['groups']->global)) : ?>
+
+        <section>
+            <h3>Global Groups</h3>
+
+            <ul class="qm-ltr">
+                <?php foreach ($data['groups']->global as $group) : ?>
+                    <li>
+                        <?php echo esc_html($group); ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </section>
+
+    <?php endif; ?>
+
+    <?php if (! empty($data['groups']->non_persistent)) : ?>
+
+        <section>
+            <h3>Non-persistent Groups</h3>
+
+            <ul class="qm-ltr">
+                <?php foreach ($data['groups']->non_persistent as $group) : ?>
+                    <li>
+                        <?php echo esc_html($group); ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </section>
+
+    <?php endif; ?>
+
+    <?php if (! empty($data['groups']->non_prefetchable)) : ?>
+
+        <section>
+            <h3>Non-prefetchable Groups</h3>
+
+            <ul class="qm-ltr">
+                <?php foreach ($data['groups']->non_prefetchable as $group) : ?>
+                    <li>
+                        <?php echo esc_html($group); ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </section>
+
+    <?php endif; ?>
+
+<?php echo $this->after_non_tabular_output(); ?>

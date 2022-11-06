@@ -1,0 +1,65 @@
+{
+    "name": "rhubarbgroup/object-cache-pro",
+    "description": "A business class Redis object cache backend for WordPress.",
+    "homepage": "https://objectcache.pro",
+    "type": "wordpress-plugin",
+    "license": "proprietary",
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "ext-redis": "^3.1.1 || ^4.0 || ^5.0",
+        "composer/installers": "~1.0 || ~2.0"
+    },
+    "require-dev": {
+        "dms/phpunit-arraysubset-asserts": "^0.4.0",
+        "fabpot/goutte": "^v4.0",
+        "friendsofphp/php-cs-fixer": "^v3.1",
+        "mockery/mockery": "^1.2",
+        "phpcompatibility/php-compatibility": "dev-develop",
+        "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+        "squizlabs/php_codesniffer": "^3.7",
+        "szepeviktor/phpstan-wordpress": "^1.0",
+        "wp-cli/wp-cli-bundle": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "RedisCachePro\\": "src/"
+        },
+        "classmap": [
+            "src/Support/Types.php",
+            "src/Extensions/Debugbar/Panel.php",
+            "src/Extensions/Debugbar/Insights.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "suggest": {
+        "ext-redis": "Required to use PhpRedis as the object cache backend.",
+        "ext-relay": "Required to use Relay as the object cache backend."
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "composer/installers": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "test": "phpunit --testdox",
+        "test:unit": "phpunit --testdox --testsuite Unit",
+        "test:http": "phpunit --testdox --testsuite Feature",
+        "coverage:unit": "phpunit --testsuite Unit --coverage-clover=coverage.xml",
+        "coverage:http": "phpunit --testsuite Feature --coverage-clover=coverage.xml",
+        "style": "php-cs-fixer fix --verbose --dry-run --diff",
+        "style:fix": "php-cs-fixer fix --verbose",
+        "lint": "phpcs --no-cache --ignore=vendor --extensions=php --standard=PSR12 .",
+        "compatibility": "phpcs --no-cache -p --standard=PHPCompatibility --ignore=vendor,tests .",
+        "analyze": "phpstan analyze"
+    }
+}

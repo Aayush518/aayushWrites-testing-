@@ -1,0 +1,40 @@
+
+<div id="debug-bar-object-cache-insights">
+
+    <h2><span>Hit Ratio:</span> <?php echo $this->info->ratio; ?>%</h2>
+    <h2><span>Hits:</span> <?php echo $this->info->hits; ?></h2>
+    <h2><span>Misses:</span> <?php echo $this->info->misses; ?></h2>
+
+    <?php if (isset($this->info->prefetches)) : ?>
+        <h2><span>Prefetches:</span> <?php echo $this->info->prefetches; ?></h2>
+    <?php endif; ?>
+
+    <h2><span>Size:</span> <?php echo size_format($this->metrics->bytes, 2); ?></h2>
+
+    <div style="clear: both;"></div>
+
+    <?php if (! empty($this->metrics->groups)) : ?>
+
+        <h3>Cache Groups</h3>
+
+        <ul style="font-family: monospace;">
+
+            <?php foreach ($this->metrics->groups as $group => $data): ?>
+
+                <?php
+                    printf(
+                        '<li>%s: %s %s (%s)</li>',
+                        esc_html($group),
+                        esc_html($data['keys']),
+                        $data['keys'] > 1 ? 'keys' : 'key',
+                        size_format($data['bytes'])
+                    );
+                ?>
+
+            <?php endforeach; ?>
+
+        </ul>
+
+    <?php endif; ?>
+
+</div>

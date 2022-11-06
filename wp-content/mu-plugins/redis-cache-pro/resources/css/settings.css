@@ -1,0 +1,347 @@
+
+.objectcache\:navbar {
+    background: #fff;
+    border-bottom: 1px solid #ccd0d4;
+    padding-top: 10px;
+}
+
+.objectcache\:navbar h2 {
+    font-size: 18px;
+    line-height: 2.5714285714;
+    display: inline-block;
+    padding: 0;
+    margin: 0 10px 0 2px;
+}
+
+.objectcache\:navbar h2 i {
+    vertical-align: middle;
+    color: #babbbc;
+}
+
+.objectcache\:navbar .navbar-tab {
+    display: inline-block;
+    line-height: 2.5714285714;
+    padding: 0.5rem 1rem .5rem;
+    margin: 0 .25rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.objectcache\:navbar .navbar-tab.is-active {
+    border-bottom: #0071a4 solid 3px;
+    font-weight: bold;
+}
+
+.objectcache\:navbar .navbar-tab:hover {
+    color: #00a0d2;
+}
+
+.objectcache\:navbar .navbar-tab:focus {
+    box-shadow: none;
+}
+
+#wpcontent .objectcache\:navbar {
+    margin-left: -20px;
+    padding-left: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .objectcache\:navbar {
+        display: none;
+    }
+}
+
+.objectcache\:help-tip {
+    cursor: help;
+    display: block;
+    float: right;
+    margin-right: -12px;
+    width: 20px;
+    height: 20px;
+}
+
+.objectcache\:help-tip:before {
+    content: "\f223";
+    font-family: Dashicons;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 16px;
+    line-height: 20px;
+    color: #646970;
+    -webkit-font-smoothing: antialiased;
+}
+
+.postbox[id*="objectcache_metric_"] .inside {
+    margin: 0;
+    padding: 0;
+}
+
+.postbox[id*="objectcache_metric_"] .hndle span span {
+    color: #787c82;
+}
+
+.objectcache\:chart .apexcharts-tooltip {
+    visibility: hidden;
+    top: 0 !important;
+    background: rgba(254, 255, 228, .75) !important;
+    box-shadow: none;
+    border-radius: 0;
+    border: none !important;
+    padding: 6px;
+    font-size: 12px;
+}
+
+.objectcache\:chart:hover .apexcharts-tooltip {
+    visibility: visible;
+}
+
+.objectcache\:chart [class*="apexcharts-series-markers"] {
+    opacity: 1 !important;
+}
+
+.objectcache\:chart .apexcharts-xaxis-label,
+.objectcache\:chart .apexcharts-yaxis-label {
+    font-size: 10px;
+    fill: #646970;
+}
+
+.objectcache\:chart .apexcharts-tooltip-marker {
+    margin-right: 2px;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+}
+
+.apexcharts-gridlines-horizontal line:last-child,
+.apexcharts-xaxis-texts-g > .apexcharts-xaxis-label:nth-of-type(1) {
+    display: none;
+}
+
+.objectcache\:chart .apexcharts-yaxis-texts-g {
+    transform: translateX(-100%);
+}
+
+.apexcharts-yaxis-texts-g > .apexcharts-yaxis-label:last-child {
+    transform: translateY(-2px);
+}
+
+body.js .objectcache\:config.is-expanded .hide-if-advanced-form,
+body.js .objectcache\:config:not(.is-expanded) .hide-if-basic-form,
+body.js .objectcache\:config:not(.is-expanded) .hide-if-basic-form + .form-table {
+    display: none;
+}
+
+body.js .hide-if-insecure,
+body.js .is-unix-socket .hide-if-unix-socket {
+    display: none;
+}
+
+.objectcache\:config h2 {
+    margin-top: 3em;
+}
+
+.objectcache\:config .hidden {
+    display: none !important;
+}
+
+.objectcache\:config .form-table .complementary-label {
+    margin-top: .5em !important;
+    margin-bottom: 0 !important;
+}
+
+.objectcache\:config .form-table label .description {
+    color: #646970;
+}
+
+.objectcache\:config #analytics_retention {
+    width: 85px;
+}
+
+.objectcache\:latency-widget table,
+.objectcache\:groups-widget table {
+    width: 100%;
+}
+
+.objectcache\:groups-widget td:first-child,
+.objectcache\:latency-widget td:first-child {
+    word-wrap: break-word;
+    word-wrap: anywhere;
+    word-break: break-word;
+}
+
+.objectcache\:groups-widget td + td:last-child,
+.objectcache\:latency-widget td + td:last-child {
+    white-space: nowrap;
+    text-align: right;
+    vertical-align: top;
+    padding-left: 20px;
+}
+
+.objectcache\:latency-widget td + td:last-child .error {
+    white-space: normal;
+}
+
+.objectcache\:latency-widget tr {
+    margin-bottom: 10px;
+}
+
+.objectcache\:groups-widget .table-container {
+    display: block;
+    max-height: 30em;
+    overflow-y: auto;
+}
+
+.objectcache\:groups-widget .table-container + .actions {
+    margin-top: 1em !important;
+}
+
+#objectcache_groups .inside {
+    padding-right: 2px;
+}
+
+#objectcache_groups .table-container {
+    padding-right: 10px;
+}
+
+#objectcache_flushlog .inside {
+    margin: 0;
+    padding: 0;
+}
+
+#objectcache_flushlog .inset {
+    margin: 12px;
+}
+
+.objectcache\:flushlog-widget details:first-of-type {
+    margin-top: 6px;
+}
+
+.objectcache\:flushlog-widget details:last-of-type:not([open]) {
+    margin-bottom: 6px;
+}
+
+.objectcache\:flushlog-widget summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.objectcache\:flushlog-widget summary::-webkit-details-marker {
+    display: none;
+}
+
+.objectcache\:flushlog-widget summary .dashicons {
+    display: block;
+    width: 14px;
+    height: 14px;
+    font-size: 14px;
+    margin-top: -1px;
+}
+
+.objectcache\:flushlog-widget summary code {
+    margin: 0 12px 0 3px;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    background: #fff;
+}
+
+.objectcache\:flushlog-widget summary time {
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.objectcache\:flushlog-widget details[open] summary .dashicons {
+    transform: rotate(90deg);
+    margin-top: 0;
+}
+
+.objectcache\:flushlog-widget details ul {
+    margin: 0;
+    padding: 12px 12px 6px 12px;
+    border-top: 1px solid #f0f0f1;
+    border-bottom: 1px solid #f0f0f1;
+    background: #f6f7f7;
+}
+
+.objectcache\:flushlog-widget details li {
+    display: flex;
+    align-items: flex-start;
+}
+
+.objectcache\:flushlog-widget details li .dashicons {
+    margin-right: 6px;
+}
+
+.objectcache\:flushlog-widget details ul code {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    background: transparent;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.objectcache\:flushlog-widget details ul code span {
+    color: #2271b1;
+}
+
+.objectcache\:flushlog-widget label {
+    display: block;
+    margin-top: .5em;
+}
+
+.form-table .tagify {
+    font-size: 12px;
+    background-color: #ffffff;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    max-width: 100em;
+
+    --tag-bg: #dddddd;
+    --tag-hover: #dddddd;
+    --readonly-striped: 0;
+    --tag-text-color: #1e1e1e;
+    --tags-focus-border-color: #2271b1;
+    --tags-hover-border-color: #8c8f94;
+    --tag-remove-btn-bg--hover: transparent;
+}
+
+.form-table .tagify--focus {
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.form-table .tagify__tag {
+    margin-bottom: 0;
+}
+
+.tagify__tag:focus div::before,
+.tagify__tag:hover div::before {
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+}
+
+.tagify__tag[readonly] > div::before,
+.tagify__tag[readonly]:focus > div::before {
+    box-shadow: 0 0 0 1.1em #efefef inset;
+    box-shadow: 0 0 0 var(--tag-inset-shadow-size) #efefef inset;
+}
+
+.form-table .tagify__tag__removeBtn {
+    font-size: 15px;
+    font-family: inherit;
+    line-height: 1;
+    height: 17px;
+    align-items: flex-start;
+}
+
+.form-table .tagify__tag__removeBtn:hover {
+    color: inherit;
+}

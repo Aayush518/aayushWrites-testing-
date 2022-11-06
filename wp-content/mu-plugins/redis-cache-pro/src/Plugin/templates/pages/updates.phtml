@@ -1,0 +1,128 @@
+<?php
+
+$last_check = time();
+$latest_version = 'Not available';
+$update_available = false;
+$installed_version = \RedisCachePro\Version;
+$is_must_use = \RedisCachePro\Diagnostics\Diagnostics::isMustUse();
+
+if (! is_wp_error($this->info)) {
+    $latest_version = $this->info->version;
+    $last_check = $this->info->last_check + (get_option('gmt_offset') * HOUR_IN_SECONDS);
+    $update_available = version_compare($installed_version, $latest_version, '<');
+}
+
+$auto_update = false;
+$auto_update_forced = null;
+$auto_updates_enabled = false;
+
+if (! $is_must_use && function_exists('wp_is_auto_update_enabled_for_type')) {
+    $auto_updates_enabled = wp_is_auto_update_enabled_for_type('plugin');
+}
+
+if ($auto_updates_enabled) {
+    if (function_exists('wp_is_auto_update_forced_for_item')) {
+        $auto_update_forced = wp_is_auto_update_forced_for_item('plugin', null, (object) $this->info->payload);
+    }
+
+    if (! is_null($auto_update_forced)) {
+        $auto_update = (bool) $auto_update_forced;
+    } else {
+        $auto_update_plugins = (array) get_site_option('auto_update_plugins', []);
+        $auto_update = in_array($this->plugin->basename(), $auto_update_plugins, true);
+    }
+}
+
+?>
+
+<div class="wrap">
+
+    <h1>Updates</h1>
+
+    <div>
+
+        <p style="margin-top: 0;">
+            <?php printf('Last checked on %1$s at %2$s.', date_i18n('F j, Y', $last_check), date_i18n('g:i a', $last_check)); ?>
+            <a href="<?php echo esc_url(add_query_arg('force-check', 1, $this->url())); ?>">Check again.</a>
+        </p>
+
+        <table class="form-table" role="presentation">
+            <tbody>
+
+                <tr>
+                    <th scope="row">
+                        Installed version
+                    </th>
+                    <td>
+                        <?php echo $installed_version; ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th scope="row">
+                        Latest version
+                    </th>
+
+                    <td style="display: inline-flex; align-items: center; margin-bottom: 0;">
+
+                        <span>
+                            <?php echo esc_html($latest_version); ?>
+                        </span>
+
+                        <?php if ($update_available && ! $is_must_use): ?>
+                            <a role="button" style="margin-left: 16px;" class="button button-primary" href="<?php echo esc_url(network_admin_url('plugins.php?s=Object Cache Pro')); ?>">
+                                <?php _e('Update Plugin'); ?>
+                            </a>
+                        <?php endif; ?>
+
+                        <a role="button" style="margin-left: 16px;" class="button thickbox open-plugin-details-modal" href="<?php echo self_admin_url('plugin-install.php?' . http_build_query([
+                            'tab' => 'plugin-information',
+                            'plugin' => $this->plugin->slug(),
+                            'section' => 'changelog',
+                            'TB_iframe' => 'true',
+                            'width' => '600',
+                            'height' => '800',
+                        ])); ?>">
+                            View Changelog
+                        </a>
+                    </td>
+                </tr>
+
+                <?php if ($auto_updates_enabled) : ?>
+                    <tr>
+                        <th scope="row">
+                            Auto-updates
+                        </th>
+                        <td>
+                            <?php if ($auto_update) : ?>
+                                Auto-updates are enabled
+                            <?php elseif (! $auto_update_forced && $this->plugin->option('channel') !== 'stable') : ?>
+                                Auto-updates are disabled for non-stable channels
+                            <?php else : ?>
+                                Auto-updates are disabled
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <div style="margin-top: 4em;">
+
+        <form id="objectcache:options" method="post" action="<?php echo esc_url($this->url()); ?>">
+            <?php do_settings_sections('objectcache'); ?>
+            <?php submit_button(); ?>
+        </form>
+
+    </div>
+
+</div>
+
+<?php add_thickbox(); wp_enqueue_script('plugin-install'); ?>
+
+<script id="tmpl-objectcache-options-notice" type="text/html">
+    <div <# if (data.id) { #>id="{{ data.id }}"<# } #> class="notice {{ data.className }}"><p>{{{ data.message }}}</p></div>
+</script>

@@ -1,0 +1,26 @@
+<?php
+
+$url = self_admin_url('plugin-install.php?' . http_build_query([
+    'tab' => 'plugin-information',
+    'plugin' => $this->slug(),
+    'section' => 'changelog',
+    'TB_iframe' => 'true',
+    'width' => '600',
+    'height' => '800',
+]));
+
+?>
+
+<tr class="active">
+    <th scope="row" class="check-column" style="border-left-color: #ffb900; background-color: #fff8e5;"></th>
+    <td class="plugin-title column-primary colspanchange update-message" colspan="2" style="background-color: #fff8e5;">
+        <p style="display: flex; align-items: center; margin: 0;">
+            <span style="padding-left: 6px;">
+                There is a new version of Object Cache Pro available.
+                <a href="<?php echo esc_url($url); ?>" class="thickbox open-plugin-details-modal">
+                    View version <?php echo esc_html($update->new_version); ?> details.
+                </a>
+            </span>
+        </p>
+    </td>
+</tr>

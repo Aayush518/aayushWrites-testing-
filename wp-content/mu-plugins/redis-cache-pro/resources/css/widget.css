@@ -1,0 +1,112 @@
+
+#objectcache_overview .inside,
+#dashboard_objectcache .inside {
+    padding: 0;
+}
+
+.objectcache\:overview-widget {
+    padding: 0 12px;
+}
+
+.objectcache\:overview-widget:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.objectcache\:overview-widget ul {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    min-height: 3rem;
+}
+
+.objectcache\:overview-widget li {
+    float: left;
+    width: 50%;
+    margin-bottom: 10px;
+}
+
+.objectcache\:overview-widget li .dashicons {
+    color: #606a73;
+}
+
+.objectcache\:overview-widget code {
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.objectcache\:overview-widget .actions .button {
+    margin-right: 8px;
+    margin-bottom: 12px;
+}
+
+.objectcache\:overview-widget .actions .button-ml-auto {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.objectcache\:widget .actions {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.objectcache\:widget .actions .button[disabled] {
+    cursor: not-allowed;
+}
+
+.objectcache\:widget .button-tertiary {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.objectcache\:widget .button-tertiary:active,
+.objectcache\:widget .button-tertiary:focus,
+.objectcache\:widget .button-tertiary:hover {
+    outline: none;
+    border-color: transparent;
+    background-color: transparent;
+    text-decoration: underline;
+    box-shadow: none;
+}
+
+.objectcache\:widget .error {
+    color: #d54e21;
+}
+
+.objectcache\:widget .alert {
+    color: #14ceea;
+}
+
+.objectcache\:widget .warning {
+    color: #e1a948;
+}
+
+.objectcache\:widget .error:last-child,
+.objectcache\:widget .alert:last-child,
+.objectcache\:widget .warning:last-child {
+    margin-bottom: 0;
+}
+
+.objectcache\:widget-sub {
+    color: #555d66;
+    background: #f5f5f5;
+    border-top: 1px solid #eee;
+    padding: 10px 12px;
+}
+
+.objectcache\:widget-sub p,
+.objectcache\:widget-sub ul {
+    margin: 0;
+}
+
+.objectcache\:widget-sub p + ul {
+    margin-top: 6px;
+}
+
+.objectcache\:widget-sub code {
+    margin: 0;
+    line-height: 21px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}

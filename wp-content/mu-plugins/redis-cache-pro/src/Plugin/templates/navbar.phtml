@@ -1,0 +1,16 @@
+
+<div class="objectcache:navbar">
+    <h2>
+        Object Cache Pro
+    </h2>
+
+    <?php foreach ($this->pages as $page) : ?>
+        <?php ! $page->isEnabled() ?: printf(
+            '<a class="navbar-tab %s" href="%s">%s</a>',
+            $page->isCurrent() ? 'is-active' : '',
+            esc_url($page->url()),
+            esc_html($page->title())
+        ); ?>
+    <?php endforeach; ?>
+
+</div>

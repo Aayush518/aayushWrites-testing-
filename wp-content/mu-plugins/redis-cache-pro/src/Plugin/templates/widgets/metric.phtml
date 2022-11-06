@@ -1,0 +1,8 @@
+
+<div
+    class="objectcache:chart"
+    data-chart="<?php echo esc_attr($id); ?>"
+    data-type="<?php echo esc_attr(
+        is_array($metric['type']) ? json_encode($metric['type']) : $metric['type']
+    ); ?>"
+></div>

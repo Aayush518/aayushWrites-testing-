@@ -1,0 +1,177 @@
+#astra-sites-5-start-notice .notice-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+#astra-sites-5-start-notice .notice-content {
+    margin-left: 15px;
+}
+
+#astra-sites-5-start-notice .notice-image img {
+    width: 90px;
+}
+
+#astra-sites-5-start-notice .astra-review-notice-container {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+
+#astra-sites-5-start-notice .astra-review-notice-container .dashicons {
+    font-size: 1.4em;
+    padding-left: 10px;
+}
+
+#astra-sites-5-start-notice .astra-review-notice-container a {
+    padding-left: 5px;
+    text-decoration: none;
+}
+
+.astra-sites-welcome .astra-notice-container {
+    display: block;
+}
+
+.astra-sites-welcome .astra-notice-container .notice-welcome-container {
+    background-image: url("../../inc/assets/images/starter-template-3-banner-image-background.jpg");   
+    justify-content: left;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center top;
+    display: flex;
+    flex-flow: row;
+}
+
+.astra-sites-welcome .astra-notice-container .notice-welcome-container::after {
+    padding: 2.5%;
+    content: "";
+    display: block;
+}
+
+.astra-sites-welcome .text-section {
+    flex: 0 0 58%;
+}
+
+.astra-sites-welcome .showcase-section {
+    flex: 0 0 41.3%;
+}
+
+.astra-sites-welcome .showcase-section img {
+    width: 100%;
+}
+
+.astra-sites-welcome h1.text-heading {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 36px;
+    color: #1F2937;
+    margin-bottom: 6px;
+    padding: 0;
+    margin-left: 80px;
+}
+
+.astra-sites-welcome a.text-button {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #FFFFFF;
+    gap: 8px;
+    background: #1F2937;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-left: 80px;
+}
+
+.astra-sites-welcome .notice-content-container .content-section {
+    margin-left: 60px;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.astra-sites-welcome .notice-content-container {
+    padding-top: 42px;
+    padding-bottom: 42px;
+}
+
+.astra-sites-welcome .notice-content-container .icon-section {
+    background: #F7F7F9;
+    border-radius: 24px;
+    padding: 12px;
+    gap: 8px;
+}
+
+.astra-sites-welcome .notice-content-container .link-section {
+    padding: 0px;
+    gap: 16px;
+    width: 252px;
+}
+
+.astra-sites-welcome .notice-content-container .link-section h4 {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+    color: #1F2937;
+    margin: 0;
+}
+
+.astra-sites-welcome .notice-content-container .link-section p, .astra-sites-welcome .text-section p {
+    font-size: 14px;
+    line-height: 20px;
+    color: #4B5563;
+    font-style: normal;
+    font-weight: 400;
+    margin-bottom: 16px;
+    padding: 0
+}
+
+.astra-sites-welcome .text-section p {
+    margin-bottom: 24px;
+    margin-left: 80px;
+}
+
+.astra-sites-welcome .astra-notice-container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.astra-sites-welcome.notice.is-dismissible {
+    padding-right: 0;
+}
+
+.astra-sites-welcome.notice {
+    padding: 0;
+    border-left-width: 0;
+    border: none;
+}
+.astra-sites-welcome .notice-dismiss:before {
+    background-image: url(../../inc/assets/images/cross.svg);
+    content: '';
+    position: relative;
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+
+.astra-sites-welcome .notice-dismiss {
+    top: 3px;
+    right: 3px;
+    margin: 0;
+}
+
+.link-section a {
+    font-size: 12px;
+    line-height: 12px;
+    color: #1D4ED8;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 500;
+}

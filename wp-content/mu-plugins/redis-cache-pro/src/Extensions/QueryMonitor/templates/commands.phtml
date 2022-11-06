@@ -1,0 +1,136 @@
+<?php
+
+if (! defined('QM_OBJECTCACHE_EXPENSIVE')) {
+    define('QM_OBJECTCACHE_EXPENSIVE', 0.005);
+}
+
+if (! defined('QM_OBJECTCACHE_HEAVY')) {
+    define('QM_OBJECTCACHE_HEAVY', MB_IN_BYTES);
+}
+
+?>
+
+<?php echo $this->before_tabular_output(); ?>
+
+    <thead>
+        <tr>
+            <th scope="col" class="qm-sorted-asc qm-sortable-column" role="columnheader" aria-sort="ascending">
+                <?php echo $this->build_sorter('#'); ?>
+            </th>
+            <th scope="col" class="qm-filterable-column">
+                <?php echo $this->build_filter('type', $data['types'], 'Command'); ?>
+            </th>
+            <th scope="col">
+                Caller
+            </th>
+            <?php if (isset($data['components'])) : ?>
+                <th scope="col" class="qm-filterable-column">
+                    <?php echo $this->build_filter('component', $data['components'], 'Component'); ?>
+                </th>
+            <?php endif; ?>
+            <th scope="col" class="qm-num qm-sortable-column" role="columnheader" aria-sort="none">
+                <?php echo $this->build_sorter('Bytes'); ?>
+            </th>
+            <th scope="col" class="qm-num qm-sortable-column" role="columnheader" aria-sort="none">
+                <?php echo $this->build_sorter('Time (ms)'); ?>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <?php foreach ($data['commands'] as $no => $command) : ?>
+            <tr
+                data-qm-type="<?php echo esc_attr(strtoupper($command['command'])); ?>"
+                data-qm-component="<?php echo is_array($command['backtrace']) ? '' : esc_attr($command['backtrace']->get_component()->name); ?>"
+                data-qm-time="<?php echo esc_attr($command['time']); ?>"
+            >
+                <th scope="row" class="qm-row-num qm-num">
+                    <?php echo $no + 1; ?>
+                </th>
+
+                <td class="qm-row-sql qm-ltr qm-wrap">
+                    <code>
+                        <b><?php echo strtoupper($command['command']); ?></b>
+                        <?php echo esc_html(implode(' ', $command['parameters'])); ?>
+                    </code>
+                </td>
+
+                <td class="qm-row-caller qm-ltr qm-has-toggle qm-nowrap">
+                    <?php if (is_array($command['backtrace'])) : ?>
+                        <ul>
+                            <?php foreach ($command['backtrace'] as $trace) : ?>
+                                <li>
+                                    <code><?php echo esc_html($trace); ?></code>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else : ?>
+                        <?php echo self::build_toggler(); ?>
+
+                        <?php $caller = $command['backtrace']->get_caller(); ?>
+                        <?php $trace = $command['backtrace']->get_filtered_trace(); ?>
+                        <?php array_shift($trace); ?>
+
+                        <ol>
+                            <li>
+                                <?php echo self::output_filename($caller['display'], $caller['calling_file'], $caller['calling_line']); ?>
+                            </li>
+                            <div class="qm-toggled">
+                                <?php foreach ($trace as $item) : ?>
+                                    <li>
+                                        <?php echo self::output_filename($item['display'] ?? "{$item['function']}()", $item['calling_file'], $item['calling_line']); ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </div>
+                        </ol>
+                    <?php endif; ?>
+                </td>
+
+                <?php if (isset($data['components'])) : ?>
+                    <td class="qm-nowrap">
+                        <?php echo esc_html($command['backtrace']->get_component()->name); ?>
+                    </td>
+                <?php endif; ?>
+
+                <?php $heavy = $command['bytes'] >= QM_OBJECTCACHE_HEAVY; ?>
+
+                <td class="qm-num qm-row-bytes <?php if ($heavy) : ?>qm-warn<?php endif; ?>" data-qm-sort-weight="<?php echo $command['bytes']; ?>">
+                    <?php if ($heavy) : ?>
+                        <span class="dashicons dashicons-warning" aria-hidden="true"></span>
+                    <?php endif; ?>
+
+                    <code><?php echo size_format($command['bytes'], $command['bytes'] > 1024 ? 2 : 0); ?></code>
+                </td>
+
+                <?php $expensive = $command['time'] >= (QM_OBJECTCACHE_EXPENSIVE * 1000); ?>
+
+                <td class="qm-num qm-row-time <?php if ($expensive) : ?>qm-warn<?php endif; ?>" data-qm-sort-weight="<?php echo $command['time']; ?>">
+                    <?php if ($expensive) : ?>
+                        <span class="dashicons dashicons-warning" aria-hidden="true"></span>
+                    <?php endif; ?>
+                    <code><?php echo number_format($command['time'], 4, '.', ''); ?></code>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
+    </tbody>
+
+    <tfoot>
+
+        <tr>
+            <td colspan="<?php echo isset($data['components']) ? 5 : 4; ?>">
+                Total:
+                <span class="qm-items-number">
+                    <?php echo count($data['commands']); ?>
+                </span>
+            </td>
+
+            <td class="qm-num qm-items-time">
+                <?php echo number_format(array_sum(array_column($data['commands'], 'time')), 4, '.', ''); ?>
+            </td>
+        </tr>
+
+    </tfoot>
+
+<?php echo $this->after_tabular_output(); ?>

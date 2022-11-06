@@ -1,0 +1,64 @@
+<?php
+
+$log = get_site_option('objectcache_flushlog', []);
+
+?>
+
+<div class="objectcache:widget objectcache:flushlog-widget">
+
+    <?php if (count($log)): ?>
+
+        <?php foreach ($log as $flush): ?>
+
+            <?php $backtrace = $this->flushlogBacktrace($flush['trace']); ?>
+
+            <details>
+                <summary>
+                    <span class="dashicons dashicons-arrow-right-alt2"></span>
+                    <code>
+                        <?php echo $this->flushlogCaller($backtrace); ?>
+                    </code>
+                    <time datetime="<?php echo date('c', $flush['time']); ?>">
+                        <?php echo human_time_diff(time(), $flush['time']); ?> ago
+                    </time>
+                </summary>
+
+                <ul>
+                    <?php if ($flush['user']) : ?>
+                        <li>
+                            <span class="dashicons dashicons-admin-users"></span>
+                            <?php echo get_user_by('id', $flush['user'])->display_name; ?>
+                        </li>
+                    <?php endif; ?>
+                    <li>
+                        <span class="dashicons dashicons-clock"></span>
+                        <time datetime="<?php echo date('c', $flush['time']); ?>">
+                            <?php echo date_i18n('Y-m-d G:i:s', $flush['time']); ?>
+                        </time>
+                    </li>
+                    <li>
+                        <span class="dashicons dashicons-editor-code"></span>
+                        <code><?php echo preg_replace(
+                            '/([,{}\\\]|::|-&gt;)/',
+                            '<span>$1</span>',
+                            esc_html($backtrace)
+                        ); ?></code>
+                    </li>
+                </ul>
+            </details>
+        <?php endforeach; ?>
+
+    <?php else : ?>
+
+        <p class="inset">No cache flushes have been logged, yet.</p>
+
+    <?php endif; ?>
+
+    <?php if (! WP_DEBUG && ! $this->plugin->config()->debug) : ?>
+        <label class="inset">
+            <input type="checkbox" name="flushlog" value="1" <?php checked($this->plugin->option('flushlog')); ?>>
+            Keep a log of cache flushes
+        </label>
+    <?php endif; ?>
+
+</div>
